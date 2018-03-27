@@ -2,8 +2,20 @@
 const setupDatabase = require('./lib/db')
 const setupAgentModel = require('./models/agent')
 const setupMetricModel = require('./models/metric')
+const defaults = require('defaults')
+module.exports = async function (config) {  
+  config = defaults(config, { //definiendo valor por defento del obj config
+    dialect: 'sqlite',
+    pool: {
+      max: 10,
+      min: 0,
+      idle: 10000
+    },
+    query: {
+      raw: true // para que con cada query se retorne el valor en un objeto json
+    }
+  })
 
-module.exports = async function (config) {
   const sequelize = setupDatabase(config)
   const AgentModel = setupAgentModel(config)
   const MetricModel = setupMetricModel(config)
