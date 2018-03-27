@@ -1,6 +1,6 @@
-#platziverse-db
+# platziverse-db
 
-#Usage
+## Usage
 
 ```
 const setupDatabase = require ('platziverse-db')

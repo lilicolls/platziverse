@@ -2,6 +2,8 @@
 // script de configuracion de la bdd
 const debug = require('debug')('platziverse:db:setup') // se le indica en que fcn se hará el debug
 const db = require('./')
+const inquirer = require('inquirer')
+const chalk = require ('chalk')
 
 async function setup () {
   // obj de configuracion para la bdd de acuerdo a los requisitos de sequelize
@@ -11,12 +13,13 @@ async function setup () {
     password: process.env.DB_PASSS || 'platzi',
     host: process.env.DB_HOST || 'localhost',
     dialect: 'postgres',
-    logging: s => debug(s),
+    logging: s => debug(s),     //para utilizar el modulo debug de npm
     setup: true,
     operatorsAliases: false
   }
   await db(config).catch(handleFatalError)
   console.log('succes')
+  
   process.exit(0)
 }
 
