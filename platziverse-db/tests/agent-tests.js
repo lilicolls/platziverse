@@ -26,8 +26,14 @@ test.beforeEach(async () => {
   sandbox = sinon.sandbox.create()
   AgentStub = {     //renuevo el valor del stub cada vez que se haga el llamado
                     //esto se hace para tener un stub fresco cada vez que se haga un llamado al modelo de agente
-    hasMany: sandbox.spy()
+    hasMany: sandbox.spy(),
+
   }
+
+  //Model findByid Stub
+  AgentStub.findById = sandbox.stub()
+  AgentStub.findById.withArgs(id).returns(Promise.resolve(agentFixtures.byId(id)))  //definir el comportamiento del metodo cuando se llama con un argumento en especifico
+
   //const setupDatabase = require('../')
   const setupDatabase = proxyquire ('../', {
     './models/agent': ()=> AgentStub,
